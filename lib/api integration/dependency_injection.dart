@@ -2,6 +2,8 @@ import 'package:dash/api%20integration/api_service.dart';
 import 'package:dash/api%20integration/auth/auth_repo.dart';
 import 'package:dash/api%20integration/auth/auth_repo_impl.dart';
 import 'package:dash/api%20integration/auth/token_service.dart';
+import 'package:dash/api%20integration/crud/category/data/repo/category_repo.dart';
+import 'package:dash/api%20integration/crud/category/data/repo/category_repo_impl.dart';
 
 class DependencyInjection {
   static const String baseUrl = 'http://localhost:8080/api/v1/';
@@ -16,5 +18,8 @@ class DependencyInjection {
 
   static AuthRepo provideAuthRepo() {
     return AuthRepoImpl(provideApiService(), provideAuthTokenService());
+  }
+  static CategoryRepo provideCategoryRepo() {
+    return CategoryRepoImpl(provideApiService());
   }
 }

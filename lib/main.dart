@@ -1,5 +1,6 @@
 import 'package:dash/api%20integration/app_router.dart';
 import 'package:dash/api%20integration/auth/bloc/login_bloc.dart';
+import 'package:dash/api%20integration/crud/category/view_model/bloc/category_bloc.dart';
 import 'package:dash/api%20integration/dependency_injection.dart';
 import 'package:dash/appbar.dart';
 
@@ -12,8 +13,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(BlocProvider(
-    create: (context) => LoginBloc(DependencyInjection.provideAuthRepo()),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => LoginBloc(DependencyInjection.provideAuthRepo()),
+      ),
+      BlocProvider(
+          create: (context) =>
+              CategoryBloc(DependencyInjection.provideCategoryRepo())
+                ..add(FetchCategories())),
+    ],
     child: const MyApp(),
   ));
 }
