@@ -1,229 +1,83 @@
-import 'package:dash/const/const.dart';
+import 'package:dash/api%20integration/crud/category/data/model/category_model/category_model.dart';
+import 'package:dash/api%20integration/crud/category/view_model/bloc/category_bloc.dart';
+import 'package:dash/size_config.dart';
+import 'package:dash/space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: EdgeInsets.all(20),
-        child: Row(children: [
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    ))),
+    return BlocBuilder<CategoryBloc, CategoryState>(
+      builder: (context, state) {
+        if (state is GetCategorySuccess) {
+          return SizedBox(
+            height: SizeConfig.defaultSize! * 29,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.1,
+                  crossAxisSpacing: 1),
+              scrollDirection: Axis.horizontal,
+              itemCount: state.categories.length,
+              itemBuilder: (context, index) {
+                final category = state.categories[index];
+                return InkWell(
+                    onTap: () {
+                      context
+                          .read<CategoryBloc>()
+                          .repo
+                          .fetchSkillsByCategory(category.id);
+                      GoRouter.of(context).push("/skills", extra: category.id);
+                    },
+                    child: CustomCartegoryCard(cat: state.categories[index]));
+              },
+            ),
+          );
+        } else if (state is CategoryFailure) {
+          return Text(state.errMessage);
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+}
+
+class CustomCartegoryCard extends StatelessWidget {
+  const CustomCartegoryCard({super.key, required this.cat});
+  final CategoryModel cat;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent,
+            borderRadius:
+                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              )),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              )),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-                height: 50,
-                width: 100,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: cardBackgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 10,
-                          offset: Offset(0, 3)),
-                    ]),
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  height: 50,
-                  child: Text("Flutter"),
-                )),
+          child: Image.asset("assets/images/ux.png",
+              height: SizeConfig.defaultSize! * 6,
+              width: SizeConfig.defaultSize! * 6,
+              fit: BoxFit.fill),
+        ),
+        const VirticalSpace(1),
+        SizedBox(
+          width: SizeConfig.defaultSize! * 12,
+          child: Text(
+            cat.name,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-                height: 50,
-                width: 100,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: cardBackgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 10,
-                          offset: Offset(0, 3)),
-                    ]),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(),
-                )),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                    height: 50,
-                    width: 100,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: cardBackgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 3)),
-                        ]),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      height: 50,
-                      child: Text("Flutter"),
-                    )),
-              ))
-        ]),
-      ),
+        ),
+      ],
     );
   }
 }
