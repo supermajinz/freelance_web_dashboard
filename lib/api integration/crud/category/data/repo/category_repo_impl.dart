@@ -15,8 +15,8 @@ class CategoryRepoImpl implements CategoryRepo {
       Map<String, dynamic> catData) async {
     try {
       final response = await apiService.post('category', catData);
-      final project = CategoryModel.fromJson(response);
-      return Right(project);
+      final categry = CategoryModel.fromJson(response);
+      return Right(categry);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -65,6 +65,34 @@ class CategoryRepoImpl implements CategoryRepo {
         skill.add(SkillModal.fromJson(item));
       }
       return right(skill);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SkillModal>> addSkill(
+      Map<String, dynamic> skillData) async {
+    try {
+      final response = await apiService.post('skill', skillData);
+      final skill = SkillModal.fromJson(response);
+      return Right(skill);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteSkill(int skilld) async {
+    try {
+      await apiService.delete('skill/$skilld');
+      return const Right(unit);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));

@@ -1,7 +1,5 @@
 import 'package:dash/api%20integration/crud/category/data/model/category_model/category_model.dart';
-import 'package:dash/api%20integration/crud/category/view_model/bloc/category_bloc.dart';
-import 'package:dash/size_config.dart';
-import 'package:dash/space.dart';
+import 'package:dash/api%20integration/crud/category/view_model/bloc/category_skill_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,11 +9,11 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryBloc, CategoryState>(
+    return BlocBuilder<CategorySkillBloc, CategorySkillState>(
       builder: (context, state) {
-        if (state is GetCategorySuccess) {
+        if (state is CategoriesSkillsFetchSuccess) {
           return SizedBox(
-            height: SizeConfig.defaultSize! * 29,
+            height:300,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -28,8 +26,8 @@ class CategoryWidget extends StatelessWidget {
                 return InkWell(
                     onTap: () {
                       context
-                          .read<CategoryBloc>()
-                          .repo
+                          .read<CategorySkillBloc>()
+                          .categoryRepo
                           .fetchSkillsByCategory(category.id);
                       GoRouter.of(context).push("/skills", extra: category.id);
                     },
@@ -37,7 +35,7 @@ class CategoryWidget extends StatelessWidget {
               },
             ),
           );
-        } else if (state is CategoryFailure) {
+        } else if (state is CategorySkillFailure) {
           return Text(state.errMessage);
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -56,20 +54,20 @@ class CustomCartegoryCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
             borderRadius:
-                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
+                BorderRadius.all(Radius.circular(10)),
           ),
-          child: Image.asset("assets/images/ux.png",
-              height: SizeConfig.defaultSize! * 6,
-              width: SizeConfig.defaultSize! * 6,
-              fit: BoxFit.fill),
+          // child: Image.asset("assets/images/ux.png",
+          //     height: SizeConfig.defaultSize! * 6,
+          //     width: SizeConfig.defaultSize! * 6,
+          //     fit: BoxFit.fill),
         ),
-        const VirticalSpace(1),
+        
         SizedBox(
-          width: SizeConfig.defaultSize! * 12,
+          width: 120,
           child: Text(
             cat.name,
             textAlign: TextAlign.center,

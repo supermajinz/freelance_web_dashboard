@@ -6,7 +6,9 @@ import '../model/skill_model/skill_modal.dart';
 abstract class CategoryRepo {
   Future<Either<Failure, CategoryModel>> addCategory(
       Map<String, dynamic> catData);
+  Future<Either<Failure, SkillModal>> addSkill(Map<String, dynamic> skillData);
   Future<Either<Failure, Unit>> deleteCategory(int catId);
+  Future<Either<Failure, Unit>> deleteSkill(int skilld);
   Future<Either<Failure, List<CategoryModel>>> fetchCategories();
   Future<Either<Failure, List<SkillModal>>> fetchSkillsByCategory(int catId);
 }

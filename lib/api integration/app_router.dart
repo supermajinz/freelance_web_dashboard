@@ -10,7 +10,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/mainScreen',
-      builder: (context, state) =>  const MainScreen(),
+      builder: (context, state) => const MainScreen(),
     ),
   ]);
 }

@@ -1,13 +1,11 @@
 import 'package:dash/api%20integration/app_router.dart';
 import 'package:dash/api%20integration/auth/bloc/login_bloc.dart';
-import 'package:dash/api%20integration/crud/category/view_model/bloc/category_bloc.dart';
+import 'package:dash/api%20integration/crud/category/view_model/bloc/category_skill_bloc.dart';
+import 'package:dash/api%20integration/crud/designation/view_model/bloc/job_titles_bloc.dart';
 import 'package:dash/api%20integration/dependency_injection.dart';
-import 'package:dash/appbar.dart';
-
+import 'package:dash/api%20integration/project/view_model/bloc/project_bloc.dart';
+import 'package:dash/api%20integration/report/view_model/bloc/report_bloc.dart';
 import 'package:dash/const/const.dart';
-import 'package:dash/dashboardwidget.dart';
-import 'package:dash/login.dart';
-import 'package:dash/screen/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,8 +18,17 @@ void main() {
       ),
       BlocProvider(
           create: (context) =>
-              CategoryBloc(DependencyInjection.provideCategoryRepo())
-                ..add(FetchCategories())),
+              CategorySkillBloc(DependencyInjection.provideCategoryRepo())
+                ..add(GetCategoriesEvent())),
+      BlocProvider(
+          create: (context) =>
+              ReportBloc(DependencyInjection.provideReportRepo())),
+      BlocProvider(
+          create: (context) =>
+              JobTitlesBloc(DependencyInjection.provideJobRepo())),
+      BlocProvider(
+          create: (context) =>
+              ProjectBloc(DependencyInjection.provideProjectRepo())),
     ],
     child: const MyApp(),
   ));

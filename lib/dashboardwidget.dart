@@ -37,16 +37,6 @@ class DashboardWidget extends StatelessWidget {
             )),
       ),
       Row(children: [
-        // const Padding(
-        //   padding: EdgeInsets.only(top: 20, left: 10),
-        //   child: Text(
-        //     "Skills",
-        //     style: TextStyle(
-        //         color: selectionColor,
-        //         fontWeight: FontWeight.bold,
-        //         fontSize: 20),
-        //   ),
-        // ),
         Container(
           width: 550,
         ),
