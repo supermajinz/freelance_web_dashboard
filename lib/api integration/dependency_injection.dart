@@ -1,3 +1,5 @@
+import 'package:dash/Wallet/data/wallet_repo.dart';
+import 'package:dash/Wallet/data/wallet_repo_impl.dart';
 import 'package:dash/api%20integration/api_service.dart';
 import 'package:dash/api%20integration/auth/auth_repo.dart';
 import 'package:dash/api%20integration/auth/auth_repo_impl.dart';
@@ -10,6 +12,8 @@ import 'package:dash/api%20integration/project/data/repo/project_repo.dart';
 import 'package:dash/api%20integration/project/data/repo/project_repo_impl.dart';
 import 'package:dash/api%20integration/report/data/repo/report_repo.dart';
 import 'package:dash/api%20integration/report/data/repo/report_repo_impl.dart';
+import 'package:dash/User/data/user_repo_impl.dart';
+import 'package:dash/User/data/users_repo.dart';
 
 class DependencyInjection {
   static const String baseUrl = 'http://localhost:8080/api/v1/';
@@ -26,6 +30,7 @@ class DependencyInjection {
     return AuthRepoImpl(provideApiService(), provideAuthTokenService());
   }
 
+
   static CategoryRepo provideCategoryRepo() {
     return CategoryRepoImpl(provideApiService());
   }
@@ -40,5 +45,13 @@ class DependencyInjection {
 
   static ReportRepo provideReportRepo() {
     return ReportRepoImpl(provideApiService());
+  }
+
+  static UsersRepo provideUserRepo() {
+    return UserRepoImpl(provideApiService());
+  }
+
+  static WalletRepo provideWalletRepp() {
+    return WalletRepoImpl(provideApiService());
   }
 }

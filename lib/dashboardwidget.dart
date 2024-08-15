@@ -97,7 +97,7 @@ class DashboardWidget extends StatelessWidget {
               color: selectionColor, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
-      const CategoryWidget(),
+      // CategoryWidget(),
       Container(
         height: 50,
       ),

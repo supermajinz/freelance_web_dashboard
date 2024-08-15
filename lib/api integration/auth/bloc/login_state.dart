@@ -14,3 +14,5 @@ class LoginError extends LoginState {
 
   LoginError(this.errorMessage);
 }
+class LogoutSuccess extends LoginState{}
+class LogoutLoading extends LoginState {}

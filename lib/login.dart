@@ -4,7 +4,7 @@ import 'package:dash/api%20integration/auth/bloc/login_bloc.dart';
 //import 'package:dash/dashboardwidget.dart';
 import 'package:dash/screen/mainscreen.dart';
 //import 'package:dash/screen/transfer.dart';
-import 'package:dash/screen/users.dart';
+import 'package:dash/User/view/users.dart';
 import 'package:dash/wallets/wallethome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,8 +45,9 @@ class _LoginFormState extends State<LoginForm> {
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
         if (state is LoginSuccess) {
-          GoRouter.of(context).pushReplacement('/mainScreen');
+          context.go('/mainScreen');
         }
+      
       },
       child: Padding(
         padding: const EdgeInsets.all(16.0),

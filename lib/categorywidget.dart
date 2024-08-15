@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategorySkillBloc, CategorySkillState>(
@@ -18,12 +17,14 @@ class CategoryWidget extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1.1,
-                  crossAxisSpacing: 1),
-              scrollDirection: Axis.horizontal,
-              itemCount: state.categories.length,
-              itemBuilder: (context, index) {
-                final category = state.categories[index];
-                return InkWell(
+                  crossAxisSpacing: 1,
+                ),
+                scrollDirection: Axis.horizontal,
+                itemCount: state.categories.length,
+                itemBuilder: (context, index) {
+                  final category = state.categories[index];
+                  print('zzzzzzzzzz ${category.name}${category}}');
+                  return InkWell(
                     onTap: () {
                       context
                           .read<CategorySkillBloc>()
@@ -51,6 +52,7 @@ class CustomCartegoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('cat: ${cat.toString()}');
     return Column(
       children: [
         Container(

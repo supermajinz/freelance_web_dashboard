@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:dash/api%20integration/auth/token_service.dart';
 import 'package:dash/api%20integration/failures.dart';
 import 'package:dio/dio.dart';
@@ -13,8 +15,8 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        //  const token =
-        //"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTMzMzMzMzMzIiwiaWF0IjoxNzIzNjMxNjg0LCJleHAiOjE3MjM3MTgwODR9._Q7MTuNNKwmPMiXSxK2KYv_Ig1XwB5ZFfbrwtiozZoI"; //admin
+        //const token =
+        //  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTMzMzMzMzMzIiwiaWF0IjoxNzIzNjMxNjg0LCJleHAiOjE3MjM3MTgwODR9._Q7MTuNNKwmPMiXSxK2KYv_Ig1XwB5ZFfbrwtiozZoI"; //admin
         //    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzNTc1NDEzLCJleHAiOjE3MjM2NjE4MTN9.kyQLAxDmcWLAMJi3jWoIuh5VPPPAJcSdVHv-5ReYktY";
         // "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIxIiwiaWF0IjoxNzIzMzk4OTgxLCJleHAiOjE3MjM0ODUzODF9.VnjjhGZc5VlW4KB_qS3a0DyatmvloiMDjctHCMR9ec8";
         final token = await _authTokenService.getToken('access_token');
@@ -63,19 +65,21 @@ class ApiService {
     try {
       print("performing post request: $endpoint");
       print('api service post: $data');
-      final response = await _dio.post(endpoint, data: data);
+      final response = await _dio
+          .post(endpoint, data: data)
+          .timeout(const Duration(seconds: 30)); // Add timeout
       print("post request $endpoint response: ${response.data}");
       if (response.data is String) {
-        // If the response is a string, wrap it in a Map
         return {'message': response.data};
       }
-
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');
       print('Response data: ${e.response?.data}');
       print('Response statusCode: ${e.response?.statusCode}');
       throw ServerFailure.fromDioException(e);
+    } on TimeoutException {
+      throw ServerFailure(errMessage: 'Request timed out');
     }
   }
 
