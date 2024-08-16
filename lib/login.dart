@@ -47,7 +47,6 @@ class _LoginFormState extends State<LoginForm> {
         if (state is LoginSuccess) {
           context.go('/mainScreen');
         }
-      
       },
       child: Padding(
         padding: const EdgeInsets.all(16.0),

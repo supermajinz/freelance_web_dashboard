@@ -62,27 +62,32 @@ class CategorySkillBloc extends Bloc<CategorySkillEvent, CategorySkillState> {
     });
 
     on<GetSkillsByCategoryEvent>((event, emit) async {
-      emit(CategorySkillLoading());
-      final results =
-          await categoryRepo.fetchSkillsByCategory(event.categoryId);
-      results.fold(
-        (failure) => emit(CategorySkillFailure(failure.errMessage)),
-        (skills) {
-          if (state is CategoriesSkillsFetchSuccess) {
-            final loadedState = state as CategoriesSkillsFetchSuccess;
+      if (state is CategoriesSkillsFetchSuccess) {
+        final currentState = state as CategoriesSkillsFetchSuccess;
+        // Emit a loading state for the specific category
+        emit(CategorySkillLoadingForCategory(
+          currentState.categories,
+          currentState.skillsByCategory,
+          event.categoryId,
+        ));
+
+        final results =
+            await categoryRepo.fetchSkillsByCategory(event.categoryId);
+        results.fold(
+          (failure) => emit(CategorySkillFailure(failure.errMessage)),
+          (skills) {
             final updatedSkillsByCategory =
-                Map<int, List<SkillModal>>.from(loadedState.skillsByCategory)
+                Map<int, List<SkillModal>>.from(currentState.skillsByCategory)
                   ..[event.categoryId] = skills;
 
             emit(CategoriesSkillsFetchSuccess(
-              categories: loadedState.categories,
+              categories: currentState.categories,
               skillsByCategory: updatedSkillsByCategory,
             ));
-          }
-        },
-      );
+          },
+        );
+      }
     });
-
     on<DeleteSkillEvent>((event, emit) async {
       emit(CategorySkillLoading());
       final failureOrSuccess = await categoryRepo.deleteSkill(event.skillId);

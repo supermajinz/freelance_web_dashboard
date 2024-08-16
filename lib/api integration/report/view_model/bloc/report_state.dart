@@ -10,10 +10,11 @@ sealed class ReportState extends Equatable {
 final class ReportInitial extends ReportState {}
 
 final class ReportLoading extends ReportState {}
+
 final class ReportDelete extends ReportState {}
 
 final class GetReportSuccess extends ReportState {
-  final List<ReportModel> reports;
+  final List<Report> reports;
 
   const GetReportSuccess(this.reports);
 
@@ -21,8 +22,14 @@ final class GetReportSuccess extends ReportState {
   List<Object> get props => [reports];
 }
 
-final class ReportFailiur extends ReportState {
+final class ReportFailure extends ReportState {
   final String errMessage;
 
-  const ReportFailiur(this.errMessage);
+  const ReportFailure(this.errMessage);
+}
+
+final class ReportDeleteFailure extends ReportState {
+  final String errMessage;
+
+  const ReportDeleteFailure(this.errMessage);
 }

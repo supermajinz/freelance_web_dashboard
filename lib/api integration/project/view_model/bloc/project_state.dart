@@ -22,8 +22,23 @@ final class ProjectDelete extends ProjectState {}
 //   List<Object> get props => [project];
 // }
 
-final class ProjectFailiur extends ProjectState {
+final class ProjectFailure extends ProjectState {
   final String errMessage;
 
-  const ProjectFailiur(this.errMessage);
+  const ProjectFailure(this.errMessage);
+}
+
+class SearchSuccess extends ProjectState {
+  final List<ProjectModel> projects;
+
+  const SearchSuccess(this.projects);
+
+  @override
+  List<Object> get props => [projects];
+}
+
+final class ProjectDeleteFailure extends ProjectState {
+  final String errMessage;
+
+  const ProjectDeleteFailure(this.errMessage);
 }

@@ -7,16 +7,18 @@ import 'package:dash/api%20integration/api_service.dart';
 import 'package:dash/api%20integration/failures.dart';
 import 'package:dio/dio.dart';
 
-class WalletRepoImpl extends WalletRepo{
+class WalletRepoImpl extends WalletRepo {
   final ApiService _apiService;
 
   WalletRepoImpl(this._apiService);
   @override
-  Future<Either<Failure, WalletPayments>> getWalletAndPayments(int userId)async {
-    try{
-    final response = await _apiService.get('wallets/with_transactions/$userId');
-    return Right(WalletPayments.fromJson(response));
-   } catch (e) {
+  Future<Either<Failure, WalletPayments>> getWalletAndPayments(
+      int userId) async {
+    try {
+      final response =
+          await _apiService.get('wallets/with_transactions/$userId');
+      return Right(WalletPayments.fromJson(response));
+    } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
       }
@@ -25,9 +27,11 @@ class WalletRepoImpl extends WalletRepo{
   }
 
   @override
-  Future<Either<Failure, TransactionResponse>> trasnAct(TransactionRequest request) async {
-    try{
-      final response = await _apiService.post('transactions/admin', request.toJson());
+  Future<Either<Failure, TransactionResponse>> trasnAct(
+      TransactionRequest request) async {
+    try {
+      final response =
+          await _apiService.post('transactions/admin', request.toJson());
       return Right(TransactionResponse.fromJson(response));
     } catch (e) {
       if (e is DioException) {
@@ -36,5 +40,4 @@ class WalletRepoImpl extends WalletRepo{
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-  
 }

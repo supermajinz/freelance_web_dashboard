@@ -18,8 +18,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await result.fold(
           (failure) async => emit(LoginError(failure.errMessage)),
           (tokens) async {
-            await _authTokenService.saveToken('access_token', tokens["access_token"]);
-            await _authTokenService.saveToken('refresh_token', tokens["refresh_token"]);
+            await _authTokenService.saveToken(
+                'access_token', tokens["access_token"]);
+            await _authTokenService.saveToken(
+                'refresh_token', tokens["refresh_token"]);
             emit(LoginSuccess());
           },
         );

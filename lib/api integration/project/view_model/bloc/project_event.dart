@@ -15,3 +15,14 @@ final class DeleteProject extends ProjectEvent {
   @override
   List<Object> get props => [projectId];
 }
+
+class SearchProjectsEvent extends ProjectEvent {
+  final Map<String, dynamic> filters;
+
+  const SearchProjectsEvent({required this.filters});
+
+  @override
+  List<Object> get props => [
+        filters,
+      ];
+}

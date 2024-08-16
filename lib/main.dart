@@ -13,13 +13,15 @@ import 'package:dash/appbar.dart';
 import 'package:dash/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final authTokenService = AuthTokenService();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
-        create: (context) => LoginBloc(DependencyInjection.provideAuthRepo(),DependencyInjection.provideAuthTokenService()),
+        create: (context) => LoginBloc(DependencyInjection.provideAuthRepo(),
+            DependencyInjection.provideAuthTokenService()),
       ),
       BlocProvider(
         create: (context) => UserBloc(DependencyInjection.provideUserRepo()),
@@ -37,8 +39,7 @@ void main() {
       BlocProvider(
           create: (context) =>
               ProjectBloc(DependencyInjection.provideProjectRepo())),
-
-              BlocProvider(
+      BlocProvider(
         create: (context) =>
             WalletBloc(DependencyInjection.provideWalletRepp()),
       ),

@@ -227,7 +227,8 @@ class UserResultCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  WalletDashboard(userId: user.id!)));
+                          builder: (context) =>
+                              WalletDashboard(userId: user.id!)));
                 },
               ),
             ),

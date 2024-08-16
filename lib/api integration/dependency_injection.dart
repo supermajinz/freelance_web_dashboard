@@ -30,7 +30,6 @@ class DependencyInjection {
     return AuthRepoImpl(provideApiService(), provideAuthTokenService());
   }
 
-
   static CategoryRepo provideCategoryRepo() {
     return CategoryRepoImpl(provideApiService());
   }

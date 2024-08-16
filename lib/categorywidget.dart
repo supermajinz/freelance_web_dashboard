@@ -12,19 +12,19 @@ class CategoryWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is CategoriesSkillsFetchSuccess) {
           return SizedBox(
-            height:300,
+            height: 300,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.1,
-                  crossAxisSpacing: 1,
-                ),
-                scrollDirection: Axis.horizontal,
-                itemCount: state.categories.length,
-                itemBuilder: (context, index) {
-                  final category = state.categories[index];
-                  print('zzzzzzzzzz ${category.name}${category}}');
-                  return InkWell(
+                crossAxisCount: 2,
+                childAspectRatio: 1.1,
+                crossAxisSpacing: 1,
+              ),
+              scrollDirection: Axis.horizontal,
+              itemCount: state.categories.length,
+              itemBuilder: (context, index) {
+                final category = state.categories[index];
+                print('zzzzzzzzzz ${category.name}${category}}');
+                return InkWell(
                     onTap: () {
                       context
                           .read<CategorySkillBloc>()
@@ -59,15 +59,13 @@ class CustomCartegoryCard extends StatelessWidget {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
-            borderRadius:
-                BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           // child: Image.asset("assets/images/ux.png",
           //     height: SizeConfig.defaultSize! * 6,
           //     width: SizeConfig.defaultSize! * 6,
           //     fit: BoxFit.fill),
         ),
-        
         SizedBox(
           width: 120,
           child: Text(

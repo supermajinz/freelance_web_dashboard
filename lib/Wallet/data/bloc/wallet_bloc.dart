@@ -15,7 +15,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
   WalletBloc(this._walletRepo) : super(WalletInitial()) {
     on<GetWalletPayments>(_getWalletPayment);
     on<DepositToUserWallet>(_depositToUserWallet);
-     on<WithdrawFromUserWallet>(_withdrawFromUserWallet);
+    on<WithdrawFromUserWallet>(_withdrawFromUserWallet);
   }
   FutureOr<void> _getWalletPayment(
       GetWalletPayments event, Emitter<WalletState> emit) async {
@@ -35,7 +35,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     result.fold((failure) => emit(WalletError(failure.errMessage)),
         (response) => emit(TransactionCompleted(response)));
   }
-  
+
   FutureOr<void> _withdrawFromUserWallet(
       WithdrawFromUserWallet event, Emitter<WalletState> emit) async {
     emit(WalletLoading());
@@ -48,4 +48,3 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
         (response) => emit(TransactionCompleted(response)));
   }
 }
-

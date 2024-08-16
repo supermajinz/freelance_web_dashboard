@@ -6,13 +6,11 @@ class TransactionRequest extends Equatable {
   final DateTime? transactionDate;
   final String? type; //COULD BE "DEPOSIT" OR "WITHDRAW"
 
-
   const TransactionRequest({
     this.receiverUserId,
     this.amount,
     this.transactionDate,
     this.type,
-
   });
 
   factory TransactionRequest.fromJson(Map<String, dynamic> json) {

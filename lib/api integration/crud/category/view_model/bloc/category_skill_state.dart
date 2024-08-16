@@ -52,3 +52,21 @@ final class CategorySkillFailure extends CategorySkillState {
   @override
   List<Object> get props => [errMessage];
 }
+
+final class CategorySkillDeleteFailure extends CategorySkillState {
+  final String errMessage;
+
+  const CategorySkillDeleteFailure(this.errMessage);
+
+  @override
+  List<Object> get props => [errMessage];
+}
+
+class CategorySkillLoadingForCategory extends CategorySkillState {
+  final List<CategoryModel> categories;
+  final Map<int, List<SkillModal>> skillsByCategory;
+  final int loadingCategoryId;
+
+  CategorySkillLoadingForCategory(
+      this.categories, this.skillsByCategory, this.loadingCategoryId);
+}

@@ -48,6 +48,7 @@ class ApiService {
         return {'data': response.data};
       }
       if (response.data is List) {
+        print(response.data);
         return {'data': response.data};
       }
       print("get request $endpoint response: ${response.data}");

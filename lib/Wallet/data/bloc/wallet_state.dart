@@ -29,5 +29,4 @@ class TransactionCompleted extends WalletState {
   final TransactionResponse response;
 
   const TransactionCompleted(this.response);
-  
 }

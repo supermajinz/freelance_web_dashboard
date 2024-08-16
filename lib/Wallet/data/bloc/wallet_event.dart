@@ -22,7 +22,8 @@ class DepositToUserWallet extends WalletEvent {
   const DepositToUserWallet(
     this.userId,
     this.amount,
-    this.transactionDate, this.type,
+    this.transactionDate,
+    this.type,
   );
 }
 

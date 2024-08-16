@@ -7,7 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('MyApp UI Test', (WidgetTester tester) async {
     // Build the MyApp widget.
-    await tester.pumpWidget( MyApp(authTokenService: DependencyInjection.provideAuthTokenService(),));
+    await tester.pumpWidget(MyApp(
+      authTokenService: DependencyInjection.provideAuthTokenService(),
+    ));
 
     // Verify the presence of the MaterialApp.
     expect(find.byKey(const Key('myApp')), findsOneWidget);

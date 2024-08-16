@@ -39,3 +39,12 @@ final class JobTitlesFailure extends JobTitlesState {
   @override
   List<Object> get props => [errMessage];
 }
+
+final class JobTitlesDeleteFailure extends JobTitlesState {
+  final String errMessage;
+
+  const JobTitlesDeleteFailure(this.errMessage);
+
+  @override
+  List<Object> get props => [errMessage];
+}

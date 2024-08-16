@@ -30,18 +30,18 @@ class AppBarwidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-                onPressed: () {
-                  context.read<LoginBloc>().add(Logout());
-                },
-            child: BlocBuilder<LoginBloc, LoginState>(
-              builder: (context, state) {
-                if (state is LogoutLoading) {
-                  return const CircularProgressIndicator();
-                }
-                return const Text('Logout');
+              onPressed: () {
+                context.read<LoginBloc>().add(Logout());
               },
+              child: BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, state) {
+                  if (state is LogoutLoading) {
+                    return const CircularProgressIndicator();
+                  }
+                  return const Text('Logout');
+                },
+              ),
             ),
-          ),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -66,8 +66,10 @@ class AppBarwidget extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const UsersScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UsersScreen()));
               },
               child: Container(
                 padding: const EdgeInsets.all(8),

@@ -6,7 +6,7 @@ class TransactionResponse extends Equatable {
   final int? receiverUserId;
   final int? amount;
   final DateTime? transactionDate;
-  final String? type; 
+  final String? type;
   final int? transactionNumber;
   final int? postBalance;
 
